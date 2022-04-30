@@ -14,10 +14,14 @@ const { NotImplementedError } = require('../extensions/index.js');
 function getSeason(date) {
   if(!date){
     return 'Unable to determine the time of year!';
-  } else if(!([Symbol.toStringTag] === 'Date')){
+  } else if((isNaN(Date.parse(date)) && !([Symbol.toStringTag] === 'Date')) || isNaN(Date.parse(date))){
     throw new Error("Invalid date!")
   } else {
+    let day = date.getDay();
     let month = date.getMonth();
+    if(day >= 12 || month >=12){
+      throw new Error("Invalid date!")
+    }
     console.log(month);
     if (month >= 0 && month <=1 || month === 11){
       return 'winter'
