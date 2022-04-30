@@ -12,14 +12,18 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
 function getSeason(date) {
+  let today = Date.now();
+  console.log(+date === today)
+
   if(!date){
     return 'Unable to determine the time of year!';
-  } else if((isNaN(Date.parse(date)) && !([Symbol.toStringTag] === 'Date')) || isNaN(Date.parse(date))){
-    throw new Error("Invalid date!")
-  } else {
-    let day = date.getDay();
+  } else if (+date === today) {
+    throw new Error("Invalid date!");
+  } else if (date instanceof Date) {
+    let dayN = date.getDate();
     let month = date.getMonth();
-    if(day >= 12 || month >=12){
+    let day = date.getDay();
+    if(dayN >= 32 || month >=12 || day >=7){
       throw new Error("Invalid date!")
     }
     console.log(month);
@@ -32,6 +36,8 @@ function getSeason(date) {
     } else if (month >= 8 && month <=10) {
       return 'autumn'
     }
+  } else {
+      throw new Error("Invalid date!")
   }
 }
 
