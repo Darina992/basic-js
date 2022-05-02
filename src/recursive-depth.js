@@ -46,6 +46,7 @@ const { NotImplementedError } = require('../extensions/index.js');
      }
      this.counter = 1;
    }
+
  }
 
 module.exports = {
